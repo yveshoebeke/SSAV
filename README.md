@@ -11,90 +11,92 @@ General architecture:
 * Data Reactors
 
 Example of my gathered GPS data:
-================================
-$GPRMC,155721.000,A,4103.9752,N,07332.0104,W,0.02,2.29,061214,,,A*7D
 
-$GPVTG,2.29,T,,M,0.02,N,0.04,K,A*32
-
-$GPGSA,A,3,02,06,05,25,09,10,29,,,,,,2.33,1.55,1.74*06
-
-$GPGGA,155722.000,4103.9752,N,07332.0105,W,1,7,1.55,84.5,M,-34.3,M,,*50
-
-$GPGSV,3,1,11,05,75,247,26,02,69,058,36,10,43,051,44,13,39,133,22*77
-$GPGSV,3,2,11,51,31,225,,29,30,314,47,06,28,090,18,25,24,269,13*74
-$GPGSV,3,3,11,12,20,228,19,09,17,042,44,26,17,170,19*4D
+* $GPRMC,155721.000,A,4103.9752,N,07332.0104,W,0.02,2.29,061214,,,A*7D
+* $GPVTG,2.29,T,,M,0.02,N,0.04,K,A*32
+* $GPGSA,A,3,02,06,05,25,09,10,29,,,,,,2.33,1.55,1.74*06
+* $GPGGA,155722.000,4103.9752,N,07332.0105,W,1,7,1.55,84.5,M,-34.3,M,,*50
+* $GPGSV,3,1,11,05,75,247,26,02,69,058,36,10,43,051,44,13,39,133,22*77
+* $GPGSV,3,2,11,51,31,225,,29,30,314,47,06,28,090,18,25,24,269,13*74
+* $GPGSV,3,3,11,12,20,228,19,09,17,042,44,26,17,170,19*4D
 
 Explanation:
-============
+
 RMC: Recommended minimum data for gps.
-	123519       Fix taken at 12:35:19 UTC
-	A            Status A=active or V=Void.
-	4807.038,N   Latitude 48 deg 07.038' N
-	01131.000,E  Longitude 11 deg 31.000' E
-	022.4        Speed over the ground in knots
-	084.4        Track angle in degrees True
-	230394       Date - 23rd of March 1994
-	003.1,W      Magnetic Variation
-	A	     Mode [see note]
-	*6A          The checksum data, always begins with *
+* 123519       Fix taken at 12:35:19 UTC
+* A            Status A=active or V=Void.
+* 4807.038,N   Latitude 48 deg 07.038' N
+* 01131.000,E  Longitude 11 deg 31.000' E
+* 022.4        Speed over the ground in knots
+* 084.4        Track angle in degrees True
+* 230394       Date - 23rd of March 1994
+* 003.1,W      Magnetic Variation
+* A	     Mode [see note]
+* *6A          The checksum data, always begins with *
+
 --> Good data check: checksum=good,status='A',mode='A'|'D' 
 
 
 VTG: Vector track an Speed over the Ground.
-	054.7,T      True track made good (degrees)
-	034.4,M      Magnetic track made good
-	005.5,N      Ground speed, knots
-	010.2,K      Ground speed, Kilometers per hour
-	A	     Mode [see note]
-	*48          Checksum
+* 054.7,T      True track made good (degrees)
+* 034.4,M      Magnetic track made good
+* 005.5,N      Ground speed, knots
+* 010.2,K      Ground speed, Kilometers per hour
+* A	       Mode [see note]
+* *48          Checksum
+
 --> Good data check: checksum=good,mode='A'|'D'
 
 
 GSA: Overall Satellite data.
-	A        Auto selection of 2D or 3D fix (M = manual) 
-     	3        3D fix - values include: 1 = no fix
-     	                                  2 = 2D fix
-      	                                 3 = 3D fix
-     	04,05... PRNs of satellites used for fix (space for 12) 
-     	2.5      PDOP (dilution of precision) 
-     	1.3      Horizontal dilution of precision (HDOP) 
-     	2.1      Vertical dilution of precision (VDOP)
-     	*39      the checksum data, always begins with *
+* A        Auto selection of 2D or 3D fix (M = manual) 
+* 3        3D fix - values include: 
+ * 1 = no fix
+ * 2 = 2D fix
+ * 3 = 3D fix
+* 04,05... PRNs of satellites used for fix (space for 12) 
+* 2.5      PDOP (dilution of precision) 
+* 1.3      Horizontal dilution of precision (HDOP) 
+* 2.1      Vertical dilution of precision (VDOP)
+* *39      the checksum data, always begins with *
+     	
 --> Good data check: checksum=good,Auto selection=2|3 
 
 
 GGA: Fix information.
-     	123519       Fix taken at 12:35:19 UTC
-	4807.038,N   Latitude 48 deg 07.038' N
-     	01131.000,E  Longitude 11 deg 31.000' E
-     	1            Fix quality: 0 = invalid
-                               	  1 = GPS fix (SPS)
-                               	  2 = DGPS fix
-                               	  3 = PPS fix
-			       	  4 = Real Time Kinematic
-			       	  5 = Float RTK
-                               	  6 = estimated (dead reckoning) (2.3 feature)
-			       	  7 = Manual input mode
-			       	  8 = Simulation mode
-     	08           Number of satellites being tracked
-     	0.9          Horizontal dilution of position
-     	545.4,M      Altitude, Meters, above mean sea level
-     	46.9,M       Height of geoid (mean sea level) above WGS84 ellipsoid
-     	(empty field) time in seconds since last DGPS update
-     	(empty field) DGPS station ID number
-     	*47          the checksum data, always begins with *
+* 123519       Fix taken at 12:35:19 UTC
+* 4807.038,N   Latitude 48 deg 07.038' N
+* 01131.000,E  Longitude 11 deg 31.000' E
+* 1            Fix quality: 0 = invalid
+ * 1 = GPS fix (SPS)
+ * 2 = DGPS fix
+ * 3 = PPS fix
+ * 4 = Real Time Kinematic
+ * 5 = Float RTK
+ * 6 = estimated (dead reckoning) (2.3 feature)
+ * 7 = Manual input mode
+ * 8 = Simulation mode
+* 08           Number of satellites being tracked
+* 0.9          Horizontal dilution of position
+* 545.4,M      Altitude, Meters, above mean sea level
+* 46.9,M       Height of geoid (mean sea level) above WGS84 ellipsoid
+* (empty field) time in seconds since last DGPS update
+* (empty field) DGPS station ID number
+* *47          the checksum data, always begins with *
+     	
 --> Good data check: checksum=good,Fix quality=1|2,Number of satelites being tracked > 2 
 
 
 GSV: Satellites in view data.
-      	2            Number of sentences for full data
-      	1            sentence 1 of 2
-      	08           Number of satellites in view
-      	01           Satellite PRN number
-      	40           Elevation, degrees
-      	083          Azimuth, degrees
-      	46           SNR - higher is better for up to 4 satellites per sentence
-      	*75          the checksum data, always begins with *
+* 2            Number of sentences for full data
+* 1            sentence 1 of 2
+* 08           Number of satellites in view
+* 01           Satellite PRN number
+* 40           Elevation, degrees
+* 083          Azimuth, degrees
+* 46           SNR - higher is better for up to 4 satellites per sentence
+* *75          the checksum data, always begins with *
+      	
 --> Good data check: checksum=good,Number of satellites in view > 2 
 
 Note:
