@@ -1,3 +1,4 @@
+#!/usr/bin/python
 from NMEA.validation import checksum
 from NMEA.validation import sentencetype
 from NMEA.validation import satdata
