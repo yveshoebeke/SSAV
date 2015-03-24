@@ -1,1 +1,1 @@
-__all__ = ["getlatlong"]
+__all__ = ["getlatlong","getdistance"]
