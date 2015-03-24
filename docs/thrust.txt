@@ -1,0 +1,7 @@
+500 US Gal H2O per hour:
+
+@8.3 lbs/gal specific weight: 500 * 8.3 = 4150 lbs.
+4150 lbs/hr = 1.152777778 lbs/s
+Nozzle D = 0.75 inch, thus r = 0.375 inch
+Nozzle A = pi * 0.375^2 = 3.14159 * 0.140625 = 0.441786094 square inch
+1.152777778 / 0.441786094 = 2.609357319 psi/s
